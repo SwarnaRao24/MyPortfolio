@@ -1,0 +1,24 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+<div class="max-w-3xl">
+    <span class="text-xs font-black tracking-[0.3em] uppercase text-fuchsia-500 block mb-2">OPERATIONAL ARCHITECTURE</span>
+    <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-white uppercase mb-8">CAREER LOG<span class="text-fuchsia-500">_</span></h1>
+    
+    <div class="relative border-l-4 border-neutral-800 pl-8 space-y-12 mt-16">
+        {% for exp in experiences %}
+        <div class="group relative">
+            <div class="absolute -left-[38px] top-1.5 h-4 w-4 rounded-none bg-black border-4 border-fuchsia-500 group-hover:bg-fuchsia-500 transition-all duration-300"></div>
+            
+            <span class="text-xs font-mono font-bold text-neutral-500 tracking-wider">
+                {{ exp.start_date|date:"Y" }} — {% if exp.is_current %}PRESENT{% else %}{{ exp.end_date|date:"Y" }}{% endif %}
+            </span>
+            <h2 class="text-2xl font-black uppercase text-white mt-1 group-hover:text-fuchsia-400 transition-colors">{{ exp.job_title }}</h2>
+            <p class="text-sm font-bold tracking-wide text-neutral-400 uppercase mb-4">{{ exp.company_name }} // {{ exp.location }}</p>
+            <p class="text-neutral-400 leading-relaxed text-base font-medium">{{ exp.summary }}</p>
+        </div>
+        {% empty %}
+        <p class="text-neutral-600 font-mono italic">Database stream empty. Seed experience models via admin panel.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

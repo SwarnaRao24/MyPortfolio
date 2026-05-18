@@ -1,0 +1,29 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+<div class="text-center md:text-left mb-16">
+    <span class="text-xs font-black tracking-[0.3em] uppercase text-fuchsia-500 block mb-2">COMMERCIAL CONSULTING</span>
+    <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-white uppercase">PREMIUM SOLUTIONS<span class="text-fuchsia-500">_</span></h1>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    {% for service in services %}
+    <div class="bg-neutral-950 border-4 border-black border-t-fuchsia-500 p-8 shadow-2xl flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 relative before:absolute before:inset-0 before:border before:border-neutral-900 before:pointer-events-none">
+        <div>
+            <h2 class="text-3xl font-black uppercase tracking-tighter text-white mb-4">{{ service.title }}</h2>
+            <p class="text-neutral-400 text-sm leading-relaxed font-medium mb-8">{{ service.description }}</p>
+        </div>
+        <div class="pt-6 border-t border-neutral-900/50 flex items-end justify-between">
+            <div>
+                <span class="text-[10px] font-mono tracking-widest text-neutral-500 block uppercase">FLAT RATE BASE</span>
+                <span class="text-4xl font-black tracking-tight text-white">${{ service.price|floatformat:0 }}<span class="text-xs font-mono font-normal text-neutral-500"> CAD</span></span>
+            </div>
+            <a href="{% url 'contact' %}?interest={{ service.service_type }}" class="bg-white text-black font-black text-xs uppercase tracking-widest px-5 py-3 hover:bg-fuchsia-500 hover:text-white transition-all duration-300">
+                BOOK NOW
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-neutral-600 font-mono italic col-span-3 text-center">Consulting packages taking initialization loop. Check admin.</p>
+    {% endfor %}
+</div>
+{% endblock %}

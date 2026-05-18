@@ -1,0 +1,81 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+<div class="max-w-2xl mx-auto bg-neutral-950 border border-neutral-900 p-8 md:p-12 shadow-2xl relative">
+    <span class="text-xs font-black tracking-[0.3em] uppercase text-cyan-400 block mb-2">PORTAL INTERFACE</span>
+    <h1 class="text-4xl font-black tracking-tighter text-white uppercase mb-8">BOOK A SESSION<span class="text-cyan-400">_</span></h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="bg-cyan-950/50 border border-cyan-500 text-cyan-400 p-4 font-mono text-xs uppercase tracking-wider mb-8">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" class="space-y-6">
+        {% csrf_token %}
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-xs font-black tracking-widest uppercase text-neutral-400 mb-2">FIRST NAME</label>
+                <input type="text" name="first_name" required class="w-full bg-black border border-neutral-800 p-4 text-white font-medium focus:outline-none focus:border-cyan-500 transition-colors text-sm">
+            </div>
+            <div>
+                <label class="block text-xs font-black tracking-widest uppercase text-neutral-400 mb-2">LAST NAME</label>
+                <input type="text" name="last_name" required class="w-full bg-black border border-neutral-800 p-4 text-white font-medium focus:outline-none focus:border-cyan-500 transition-colors text-sm">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-xs font-black tracking-widest uppercase text-neutral-400 mb-2">EMAIL ADDRESS</label>
+                <input type="email" name="email" required class="w-full bg-black border border-neutral-800 p-4 text-white font-medium focus:outline-none focus:border-cyan-500 transition-colors text-sm">
+            </div>
+            <div>
+                <label class="block text-xs font-black tracking-widest uppercase text-neutral-400 mb-2">PHONE NUMBER</label>
+                <input type="tel" name="phone_number" required class="w-full bg-black border border-neutral-800 p-4 text-white font-medium focus:outline-none focus:border-cyan-500 transition-colors text-sm">
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-xs font-black tracking-widest uppercase text-neutral-400 mb-4">SELECT CORE SERVICES TO OPT-IN</label>
+            <div class="space-y-3">
+                
+                <label class="flex items-center space-x-4 bg-black border border-neutral-900 p-4 hover:border-neutral-800 cursor-pointer select-none transition-colors group">
+                    <input type="checkbox" name="services_requested" value="Canadian Tax Filing" class="w-4 h-4 accent-cyan-400 rounded-none bg-black border-neutral-800 focus:ring-0">
+                    <div class="flex flex-col">
+                        <span class="text-sm font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wide">Canadian Tax Filing for Newcomers</span>
+                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$40 CAD Base Rate</span>
+                    </div>
+                </label>
+
+                <label class="flex items-center space-x-4 bg-black border border-neutral-900 p-4 hover:border-neutral-800 cursor-pointer select-none transition-colors group">
+                    <input type="checkbox" name="services_requested" value="Resume Optimization" class="w-4 h-4 accent-cyan-400 rounded-none bg-black border-neutral-800 focus:ring-0">
+                    <div class="flex flex-col">
+                        <span class="text-sm font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wide">Resume Strategy & Transformation</span>
+                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$35 CAD Base Rate</span>
+                    </div>
+                </label>
+
+                <label class="flex items-center space-x-4 bg-black border border-neutral-900 p-4 hover:border-neutral-800 cursor-pointer select-none transition-colors group">
+                    <input type="checkbox" name="services_requested" value="LinkedIn Optimization" class="w-4 h-4 accent-cyan-400 rounded-none bg-black border-neutral-800 focus:ring-0">
+                    <div class="flex flex-col">
+                        <span class="text-sm font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wide">LinkedIn Branding & Profile Sync</span>
+                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$30 CAD Base Rate</span>
+                    </div>
+                </label>
+
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-xs font-black tracking-widest uppercase text-neutral-400 mb-2">ADDITIONAL QUERY DETAILS</label>
+            <textarea name="message" rows="4" placeholder="Type context regarding timeline or constraints..." class="w-full bg-black border border-neutral-800 p-4 text-white font-medium focus:outline-none focus:border-cyan-500 transition-colors text-sm"></textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-cyan-500 text-black font-black tracking-widest text-xs uppercase py-4 hover:bg-white transition-all duration-300 shadow-xl">
+            TRANSMIT SECURE BOOKING &rarr;
+        </button>
+    </form>
+</div>
+{% endblock %}
