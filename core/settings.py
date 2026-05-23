@@ -70,7 +70,19 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # Uses a live managed engine (PostgreSQL/MySQL) if DATABASE_URL is present, otherwise defaults to local sqlite
 DATABASES = {
-    'default': env.db('DATABASE_URL', default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            # Tells SQLite to wait up to 20 seconds for a lock to clear before failing
+            'timeout': 20,
+        },
+        'PRAGMAS': [
+            # Switches journal mode to Write-Ahead Logging for high concurrency
+            ('journal_mode', 'wal'),
+            ('synchronous', 'normal'),
+        ]
+    }
 }
 
 # Password validation

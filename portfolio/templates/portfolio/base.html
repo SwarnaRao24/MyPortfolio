@@ -10,17 +10,20 @@
 <body class="bg-black text-neutral-100 font-sans antialiased selection:bg-fuchsia-500 selection:text-black">
 
     <nav class="border-b border-neutral-900 bg-black/80 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-            <a href="{% url 'home' %}" class="text-2xl font-black tracking-tighter uppercase text-white hover:text-fuchsia-500 transition-colors">
-                SWARNA RAO<span class="text-fuchsia-500">.</span>
+        <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
+
+            <a href="{% url 'home' %}" class="text-2xl font-black tracking-tighter uppercase text-white hover:text-fuchsia-500 transition-colors text-center md:text-left">
+                THE SWARNA RAO GROUP<span class="text-fuchsia-500">.</span>
             </a>
-            <div class="hidden md:flex space-x-8 font-bold tracking-widest text-xs uppercase items-center">
-                <a href="{% url 'home' %}" class="hover:text-fuchsia-400 transition">About</a>
-                <a href="{% url 'history' %}" class="hover:text-fuchsia-400 transition">History</a>
-                <a href="{% url 'projects' %}" class="hover:text-fuchsia-400 transition">Pipelines</a>
+
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 md:space-x-8 font-bold tracking-widest text-xs uppercase items-center">
+                <a href="{% url 'home' %}" class="hover:text-fuchsia-400 transition text-neutral-300">About</a>
+                <a href="{% url 'history' %}" class="hover:text-fuchsia-400 transition text-neutral-300">History</a>
+                <a href="{% url 'projects' %}" class="hover:text-fuchsia-400 transition text-neutral-300">Pipelines</a>
                 <a href="{% url 'services' %}" class="hover:text-cyan-400 transition text-cyan-400">Services</a>
-                <a href="{% url 'contact' %}" class="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-4 py-2 font-black tracking-widest transition text-[10px]">Book Session</a>
+                <a href="{% url 'contact' %}" class="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-4 py-2 font-black tracking-widest transition text-[10px] whitespace-nowrap">Book Session</a>
             </div>
+
         </div>
     </nav>
 
@@ -44,11 +47,11 @@
             </div>
 
             <div class="md:text-right">
-                <span class="text-[10px] font-black tracking-widest uppercase text-neutral-600 block mb-3 md:text-right">// COMPILER REPOSITORIES</span>
+                <span class="text-neutral-600 block">// COMPILER REPOSITORIES</span>
                     <div class="flex space-x-6 text-sm font-bold tracking-widest uppercase text-neutral-400">
-                        <strong><a href="https://github.com/SwarnaRao24" target="_blank" class="hover:text-white transition">GitHub</a></strong>
-                        <strong><a href="https://www.linkedin.com/in/swarnamukhirchintalapudi" target="_blank" class="hover:text-fuchsia-500 transition">LinkedIn</a></strong>
-                        <strong><a href="https://medium.com/@swarnaraonetha" target="_blank" class="hover:text-cyan-400 transition">Medium</a></strong>
+                        <a href="https://github.com/SwarnaRao24" target="_blank" class="hover:text-white transition">GitHub</a>
+                        <a href="https://www.linkedin.com/in/swarnamukhirchintalapudi" target="_blank" class="hover:text-fuchsia-500 transition">LinkedIn</a>
+                        <a href="https://medium.com/@swarnaraonetha" target="_blank" class="hover:text-cyan-400 transition">Medium</a>
                     </div>
             </div>
         </div>

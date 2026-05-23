@@ -1,0 +1,43 @@
+name: Continuous Deployment Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: Build & Stream Live to DigitalOcean Droplet
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository Source Code
+        uses: actions/checkout@v4
+
+      - name: Deploy Application Layouts via SSH Remote Commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "Successfully connected to DigitalOcean Droplet."
+            
+            # Navigate to production app space
+            cd /app/portfolio
+            
+            # Pull latest changes from GitHub directly inside server workspace
+            # (Note: If this is the very first deployment, we will clone your repository)
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/${{ github.repository }}.git .
+            else
+              git pull origin main
+            fi
+            
+            echo "Rebuilding Docker asset layers..."
+            # Stop existing active production infrastructure containers
+            docker compose down --remove-orphans || true
+            
+            # Build and run the fresh container image state detached in the background
+            docker compose up --build -d
+            
+            echo "Pipeline delivery cycle complete!"
