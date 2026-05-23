@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swarna Rao | AI & Advanced Data Science Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    {% block extra_head %}{% endblock %}
 </head>
 <body class="bg-black text-neutral-100 font-sans antialiased selection:bg-fuchsia-500 selection:text-black">
 
@@ -31,15 +32,15 @@
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 items-start border-b border-neutral-900 pb-12 mb-12">
 
             <div>
-                <span class="text-[10px] font-black tracking-widest uppercase text-neutral-600 block mb-3">// SECURE CONTACT CHANNELS</span>
-                <p class="text-sm font-bold text-white font-mono">swarnach3011@gmail.com [cite: 2]</p>
-                <p class="text-sm font-bold text-neutral-400 font-mono mt-1">+1 (519) 999-3684 [cite: 2]</p>
+                <span class="text-neutral-600 block">// SECURE CONTACT CHANNELS</span>
+                <span class="block text-white font-mono text-sm">swarnach3011@gmail.com</span>
+                <span class="block text-white font-mono text-sm">+1 (519) 999-3684</span>
             </div>
 
             <div>
-                <span class="text-[10px] font-black tracking-widest uppercase text-neutral-600 block mb-3">// OPERATIONS REGIONAL TARGETS</span>
-                <p class="text-sm font-bold text-white uppercase tracking-tight">Mississauga, Ontario, Canada [cite: 3]</p>
-                <p class="text-xs text-neutral-500 mt-1 uppercase tracking-wider">Fully Authorized Open Work Permit Matrix [cite: 59]</p>
+                <span class="text-neutral-600 block">// OPERATIONS REGIONAL TARGETS</span>
+                <span class="block text-white font-mono text-sm font-bold">MISSISSAUGA, ONTARIO, CANADA</span>
+                <span class="block text-neutral-500 font-mono text-xs uppercase tracking-wider mt-1">FULLY AUTHORIZED OPEN WORK PERMIT MATRIX</span>
             </div>
 
             <div class="md:text-right">
@@ -56,6 +57,6 @@
             <p class="text-[11px] font-mono tracking-widest uppercase">&copy; 2026 SWARNA RAO. ALL CORE ENGINES NOMINAL.</p>
         </div>
     </footer>
-
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
