@@ -4,9 +4,10 @@ services:
   web:
     build: .
     ports:
-      - "80:8000"
+      - "127.0.0.1:8000:8000"
     volumes:
-      - ./db.sqlite3:/app/db.sqlite3  # <-- This makes your database persistent and permanent!
+      - ./db.sqlite3:/app/db.sqlite3
     environment:
       - DEBUG=False
+      - ALLOWED_HOSTS=theswarnaraogroup.com,www.theswarnaraogroup.com,localhost,127.0.0.1
     restart: always
