@@ -1,67 +1,78 @@
 {% extends 'portfolio/base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="space-y-24">
 
-    <div class="max-w-4xl">
-        <span class="text-xs font-black tracking-[0.4em] uppercase text-fuchsia-500 block mb-3">SYSTEM INGESTION INITIALIZED</span>
-        <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none mb-6">
-            BUILDING INFRASTRUCTURE <br class="hidden md:block">FROM THE GROUND UP<span class="text-fuchsia-500">_</span>
-        </h1>
-        <p class="text-neutral-400 text-lg md:text-xl font-medium leading-relaxed max-w-2xl">
-            I specialize in developing scalable ETL data pipelines, structuring advanced machine learning workflows, and providing specialized lifestyle compliance consulting for international newcomers.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-4">
-            <a href="{% url 'contact' %}" class="bg-cyan-400 text-black font-black text-xs uppercase tracking-widest px-6 py-4 hover:bg-white transition-colors duration-300">
-                Retain Services
-            </a>
-            <a href="{% url 'projects' %}" class="border border-neutral-800 text-white font-black text-xs uppercase tracking-widest px-6 py-4 hover:bg-neutral-900 transition-colors duration-300">
-                Review Pipelines
-            </a>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+            <span class="text-xs font-black tracking-[0.4em] uppercase text-fuchsia-500 block">SYSTEM CONTEXT: ACTIVE</span>
+            <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-white uppercase leading-none">
+                SWARNA MUKHI<br><span class="text-fuchsia-500">CHINTALAPUDI.</span>
+            </h1>
+            <p class="text-neutral-400 font-mono text-sm uppercase tracking-widest border-l-2 border-fuchsia-500 pl-4">
+                AI Specialist & Advanced Pipeline Architect
+            </p>
+            <p class="text-neutral-400 text-lg font-medium leading-relaxed max-w-xl">
+                I bridge the gap between large-scale data systems and production-grade artificial intelligence. From orchestrating multi-source enterprise pipelines to optimizing deep learning forecasting arrays, I build high-throughput analytical infrastructure designed for speed and reliability.
+            </p>
+            <div class="pt-4 flex flex-wrap gap-4 font-mono">
+                <a href="{% url 'contact' %}" class="bg-fuchsia-600 text-white font-black text-xs uppercase tracking-widest px-6 py-4 hover:bg-white hover:text-black transition-all duration-300">
+                    Retain Capabilities
+                </a>
+                <a href="{% url 'projects' %}" class="border border-neutral-800 text-white font-black text-xs uppercase tracking-widest px-6 py-4 hover:bg-neutral-900 transition-colors duration-300">
+                    Verify Pipelines
+                </a>
+            </div>
+        </div>
+
+        <div class="lg:col-span-5 relative group">
+            <div class="absolute inset-0 border-2 border-fuchsia-500 translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-300 pointer-events-none"></div>
+            <div class="bg-neutral-900 overflow-hidden border border-neutral-800">
+                <img src="https://i.postimg.cc/mD8g7Z0j/My-img.jpg" alt="Swarna Mukhi" class="w-full h-[450px] object-cover filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500">
+            </div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start border-t border-neutral-900 pt-16">
-
-        <div class="lg:col-span-1">
-            <h2 class="text-xs font-black tracking-widest uppercase text-neutral-500 mb-4">// CORE COMPASS</h2>
-            <p class="text-2xl font-black text-white uppercase tracking-tight leading-snug">
-                "Data is inherently chaotic. My focus is to build the pipelines that filter, structure, and turn that chaos into production value."
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start border-t border-neutral-950 pt-16">
+        <div>
+            <h2 class="text-xs font-black tracking-widest uppercase text-neutral-600 mb-4">// INTENT STATEMENT</h2>
+            <p class="text-2xl font-black text-white uppercase tracking-tighter leading-tight">
+                Engineering high-fidelity semantic networks and predictive pipelines.
             </p>
         </div>
-
         <div class="lg:col-span-2 space-y-6 text-neutral-400 text-base font-medium leading-relaxed">
-            <h2 class="text-xs font-black tracking-widest uppercase text-neutral-500 mb-4">// IDENTITY LOG</h2>
+            <h2 class="text-xs font-black tracking-widest uppercase text-neutral-600 mb-4">// CORE COMPASS LOG</h2>
             <p>
-                I am a technical specialist focused on artificial intelligence and data science. My engineering foundations focus heavily on managing large-scale infrastructure using tools like Python, PySpark, and Databricks. I design data cleaning engines utilizing standardized Medallion layered architectures—moving transactional raw records smoothly into secure analytical structures.
+                Holding a **Master of Applied Computing** from the University of Windsor, my focus lies at the absolute nexus of predictive model development, statistical processing, and distributed cloud architectures. I possess a verified corporate footprint architecting scalable ETL/ELT pipelines for complex enterprise systems.
             </p>
             <p>
-                Beyond engineering pipelines, I recognize the immense challenges students and professional newcomers face when executing international relocations. Navigating complex structural logistics like Canadian tax compliance, professional resume re-mapping, and targeted LinkedIn optimization can be incredibly confusing without clear guidance.
+                My background includes designing data flows inside elite environments—including orchestrating multi-source ingestion systems for **Scotiabank** and automating schedule delivery frameworks for **Dayforce**. Whether compiling structured semantic views using DBT, scaling compute spaces on Azure Databricks, or deploying neural networks, my architectures emphasize runtime efficiency, clean modular schemas, and total data integrity.
             </p>
             <p>
-                To solve this gap, I run an independent, specialized consultancy directly alongside my engineering operations. I provide clear, affordable, manual consulting services tailored specifically to students looking to maximize their professional footprint and secure compliance within Canada.
+                Leveraging this enterprise computational foundation, I provide high-performance tech consultancy options for small business operations, alongside comprehensive administrative compliance logistics for newcomers and international students settling inside Canada.
             </p>
         </div>
     </div>
 
-    <div class="bg-neutral-950 border border-neutral-900 p-8 md:p-12 shadow-2xl relative">
-        <h3 class="text-xs font-black tracking-widest uppercase text-cyan-400 mb-8">// SKILL COMPILER MATRIX</h3>
+    <div class="bg-neutral-950 border border-neutral-900 p-8 md:p-12 shadow-2xl">
+        <h3 class="text-xs font-black tracking-widest uppercase text-cyan-400 mb-8">// ACQUIRED COMPUTATION MATRIX</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono text-xs text-neutral-300">
             <div class="border border-neutral-900 p-4 bg-black">
-                <span class="text-neutral-600 block mb-1">[01] PROGRAMMING</span>
-                <span class="text-white font-bold uppercase">Python, SQL, R</span>
+                <span class="text-neutral-600 block mb-1">[01] AI & DEEP LEARNING</span>
+                <span class="text-white font-bold uppercase">NLP, LLMs, LSTM, Scikit-Learn</span>
             </div>
             <div class="border border-neutral-900 p-4 bg-black">
-                <span class="text-neutral-600 block mb-1">[02] ENGINEERING</span>
-                <span class="text-white font-bold uppercase">PySpark, Databricks</span>
+                <span class="text-neutral-600 block mb-1">[02] COMPUTE & CLOUD</span>
+                <span class="text-white font-bold uppercase">PySpark, Databricks, Synapse, AWS</span>
             </div>
             <div class="border border-neutral-900 p-4 bg-black">
-                <span class="text-neutral-600 block mb-1">[03] FRAMEWORKS</span>
-                <span class="text-white font-bold uppercase">Django, Scikit-Learn</span>
+                <span class="text-neutral-600 block mb-1">[03] WAREHOUSING</span>
+                <span class="text-white font-bold uppercase">Snowflake, DBT, SQL Advanced</span>
             </div>
             <div class="border border-neutral-900 p-4 bg-black">
-                <span class="text-neutral-600 block mb-1">[04] CORE ASSETS</span>
-                <span class="text-white font-bold uppercase">Git, Linux, Anaconda</span>
+                <span class="text-neutral-600 block mb-1">[04] SYSTEM BACKEND</span>
+                <span class="text-white font-bold uppercase">Django, APIs, Git, Unix, Airflow</span>
             </div>
         </div>
     </div>

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swarna | AI & Data Engineering Portfolio</title>
+    <title>Swarna Rao | AI & Advanced Data Science Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-black text-neutral-100 font-sans antialiased selection:bg-fuchsia-500 selection:text-black">
 
-    <nav class="border-b border-neutral-800 bg-black/80 backdrop-blur-md sticky top-0 z-50">
+    <nav class="border-b border-neutral-900 bg-black/80 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-            <a href="{% url 'home' %}" class="text-2xl font-black tracking-tighter uppercase text-white hover:text-fuchsia-500 transition-colors duration-300">
+            <a href="{% url 'home' %}" class="text-2xl font-black tracking-tighter uppercase text-white hover:text-fuchsia-500 transition-colors">
                 SWARNA RAO<span class="text-fuchsia-500">.</span>
             </a>
             <div class="hidden md:flex space-x-8 font-bold tracking-widest text-xs uppercase items-center">
@@ -18,7 +18,7 @@
                 <a href="{% url 'history' %}" class="hover:text-fuchsia-400 transition">History</a>
                 <a href="{% url 'projects' %}" class="hover:text-fuchsia-400 transition">Pipelines</a>
                 <a href="{% url 'services' %}" class="hover:text-cyan-400 transition text-cyan-400">Services</a>
-                <a href="{% url 'contact' %}" class="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-4 py-2 font-black tracking-widest transition rounded-none text-[10px]">Book Now</a>
+                <a href="{% url 'contact' %}" class="bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-4 py-2 font-black tracking-widest transition text-[10px]">Book Session</a>
             </div>
         </div>
     </nav>
@@ -27,15 +27,33 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="border-t border-neutral-900 bg-neutral-950 py-12 text-center text-neutral-500">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-sm font-mono tracking-tight">&copy; 2026 SWARNA. ARCHITECTING INSIGHT OUT OF CHAOS.</p>
-            
-            <div class="flex space-x-6 text-sm font-bold tracking-widest uppercase text-neutral-400">
-                <a href="https://github.com/SwarnaRao24" target="_blank" class="hover:text-white transition">GitHub</a>
-                <a href="https://linkedin.com" target="_blank" class="hover:text-fuchsia-500 transition">LinkedIn</a>
-                <a href="https://medium.com" target="_blank" class="hover:text-cyan-400 transition">Medium</a>
+    <footer class="border-t border-neutral-900 bg-neutral-950 py-16 text-neutral-500">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 items-start border-b border-neutral-900 pb-12 mb-12">
+
+            <div>
+                <span class="text-[10px] font-black tracking-widest uppercase text-neutral-600 block mb-3">// SECURE CONTACT CHANNELS</span>
+                <p class="text-sm font-bold text-white font-mono">swarnach3011@gmail.com [cite: 2]</p>
+                <p class="text-sm font-bold text-neutral-400 font-mono mt-1">+1 (519) 999-3684 [cite: 2]</p>
             </div>
+
+            <div>
+                <span class="text-[10px] font-black tracking-widest uppercase text-neutral-600 block mb-3">// OPERATIONS REGIONAL TARGETS</span>
+                <p class="text-sm font-bold text-white uppercase tracking-tight">Mississauga, Ontario, Canada [cite: 3]</p>
+                <p class="text-xs text-neutral-500 mt-1 uppercase tracking-wider">Fully Authorized Open Work Permit Matrix [cite: 59]</p>
+            </div>
+
+            <div class="md:text-right">
+                <span class="text-[10px] font-black tracking-widest uppercase text-neutral-600 block mb-3 md:text-right">// COMPILER REPOSITORIES</span>
+                    <div class="flex space-x-6 text-sm font-bold tracking-widest uppercase text-neutral-400">
+                        <a href="https://github.com/SwarnaRao24" target="_blank" class="hover:text-white transition">GitHub</a>
+                        <a href="https://www.linkedin.com/in/swarnamukhirchintalapudi" target="_blank" class="hover:text-fuchsia-500 transition">LinkedIn</a>
+                        <a href="https://medium.com/@swarnaraonetha" target="_blank" class="hover:text-cyan-400 transition">Medium</a>
+                    </div>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p class="text-[11px] font-mono tracking-widest uppercase">&copy; 2026 SWARNA RAO. ALL CORE ENGINES NOMINAL.</p>
         </div>
     </footer>
 

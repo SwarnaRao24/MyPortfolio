@@ -45,21 +45,22 @@ class Project(models.Model):
 
 class Service(models.Model):
     SERVICE_TYPES = [
+        ('WEBSITE', 'Personal/Business Web Services'),
+        ('GRAPHIC DESIGN', 'Graphic Design'),
+        ('LOGO DESIGN', 'Logo Design'),
         ('TAX', 'Tax Filing'),
-        ('RESUME', 'Resume & LinkedIn Optimization'),
+        ('RESUME', 'Resume Optimization'),
+        ('LINKEDIN', 'LinkedIn Optimization')
     ]
 
     title = models.CharField(max_length=100)
-    service_type = models.CharField(max_length=10, choices=SERVICE_TYPES)
+    service_type = models.CharField(max_length=20, choices=SERVICE_TYPES)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2, help_text="Price in CAD")
     active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.title} - ${self.price} CAD"
-
-
-from django.db import models
 
 
 # Keep your Experience, Project, and Service models above...
