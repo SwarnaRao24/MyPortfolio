@@ -1,50 +1,37 @@
-name: Continuous Deployment Pipeline
+name: Deploy to DigitalOcean
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
-    name: Build & Stream Live to DigitalOcean Droplet
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository Source Code
-        uses: actions/checkout@v4
-
-      - name: Deploy Application Layouts via SSH Remote Commands
+      - name: SSH into Droplet and Deploy
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_IP }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
           script: |
-            echo "Successfully connected to DigitalOcean Droplet."
-            
-            mkdir -p /app
-            cd /app
-            
-            if [ ! -d "portfolio/.git" ]; then
-              echo "Initializing first-time repository clone..."
-              git clone https://github.com/SwarnaRao24/MyPortfolio.git portfolio
-              cd portfolio
+            # Go to app directory (create if first time)
+            mkdir -p /app/portfolio
+ 
+            cd /app/portfolio
+ 
+            # Clone on first deploy, pull on subsequent ones
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/SwarnaRao24/MyPortfolio.git .
             else
-              cd portfolio
-              echo "Pulling latest changes from GitHub..."
               git fetch --all
               git reset --hard origin/main
             fi
-            
-            echo "Gracefully clearing old container builds..."
+ 
+            # Rebuild and restart containers
             docker compose down --remove-orphans || true
-            
-            echo "Rebuilding Docker asset layers..."
             docker compose up --build -d
-            
-            echo "Executing operational maintenance schemas..."
-            sleep 3
-            docker compose exec -T web python manage.py migrate --noinput
-            docker compose exec -T web python manage.py collectstatic --noinput
-            
-            echo "Pipeline delivery cycle complete! Your updates are live."
+ 
+            echo "Deployment complete!"
