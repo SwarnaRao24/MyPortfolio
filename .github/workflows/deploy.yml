@@ -22,22 +22,32 @@ jobs:
           script: |
             echo "Successfully connected to DigitalOcean Droplet."
             
-            # Navigate to production app space
-            cd /app/portfolio
+            # Ensure the deployment root environment directory exists
+            mkdir -p /app
+            cd /app
             
-            # Pull latest changes from GitHub directly inside server workspace
-            # (Note: If this is the very first deployment, we will clone your repository)
-            if [ ! -d ".git" ]; then
-              git clone https://github.com/${{ github.repository }}.git .
+            # If the repository hasn't been cloned on this server yet, clone it. Otherwise, pull updates.
+            if [ ! -d "portfolio/.git" ]; then
+              echo "Initializing first-time repository clone..."
+              git clone https://github.com/SwarnaRao24/MyPortfolio.git portfolio
+              cd portfolio
             else
-              git pull origin main
+              cd portfolio
+              echo "Pulling latest changes from GitHub..."
+              git fetch --all
+              git reset --hard origin/main
             fi
             
-            echo "Rebuilding Docker asset layers..."
-            # Stop existing active production infrastructure containers
+            echo "Gracefully clearing old container builds..."
             docker compose down --remove-orphans || true
             
-            # Build and run the fresh container image state detached in the background
+            echo "Rebuilding Docker asset layers..."
             docker compose up --build -d
             
-            echo "Pipeline delivery cycle complete!"
+            echo "Executing operational maintenance schemas..."
+            # Wait a brief moment to ensure DB container is accepting connections
+            sleep 3
+            docker compose exec -T web python manage.py migrate --noinput
+            docker compose exec -T web python manage.py collectstatic --noinput
+            
+            echo "Pipeline delivery cycle complete! Your updates are live."
