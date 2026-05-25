@@ -22,6 +22,12 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-uy7q$)kjj8i$pyy8a0+ax91t
 # SECURITY WARNING: Controlled dynamically via your hosting provider environment
 DEBUG = env('DEBUG')
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://67.205.170.7',
+    'https://theswarnaraogroup.com',
+    'https://www.theswarnaraogroup.com',
+]
+
 # Set specific domains or cloud host endpoints via your environments
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1', '[::1]'])
 
