@@ -11,7 +11,7 @@ class Experience(models.Model):
     summary = models.TextField(help_text="Core team responsibilities, data architectures, and high-level achievements")
 
     class Meta:
-        ordering = ['-start_date']  # Automatically lists your most recent role at the top
+        ordering = ['-start_date']
 
     def __str__(self):
         return f"{self.job_title} at {self.company_name}"
@@ -24,7 +24,6 @@ class Project(models.Model):
     github_url = models.URLField(blank=True, null=True)
     live_demo_url = models.URLField(blank=True, null=True)
 
-    # Foreign Key linking a project to an employer, while allowing independent personal projects
     associated_experience = models.ForeignKey(
         Experience,
         on_delete=models.SET_NULL,
@@ -63,24 +62,23 @@ class Service(models.Model):
         return f"{self.title} - ${self.price} CAD"
 
 
-# Keep your Experience, Project, and Service models above...
-
 class ContactMessage(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)
-
-    # Stores the selected options as a clean, comma-separated list string (e.g., "TAX, RESUME")
     selected_services = models.TextField(
         help_text="Services selected by the user during booking"
     )
-
     message = models.TextField(blank=True, null=True, help_text="Additional custom instructions or queries")
     submitted_at = models.DateTimeField(auto_now_add=True)
+
+    # Tracks whether admin has reviewed this booking
+    is_read = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-submitted_at']
 
     def __str__(self):
-        return f"Booking from {self.first_name} {self.last_name}"
+        status = "✓ Read" if self.is_read else "🔔 NEW"
+        return f"[{status}] Booking from {self.first_name} {self.last_name} — {self.submitted_at.strftime('%b %d, %Y')}"

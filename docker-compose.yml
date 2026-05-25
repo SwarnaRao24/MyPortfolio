@@ -11,4 +11,7 @@ services:
       - DEBUG=False
       - ALLOWED_HOSTS=theswarnaraogroup.com,www.theswarnaraogroup.com,localhost,127.0.0.1
       - CSRF_TRUSTED_ORIGINS=https://theswarnaraogroup.com,https://www.theswarnaraogroup.com,http://67.205.170.7
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - ADMIN_EMAIL=swarna.netha03@gmail.com
     restart: always
