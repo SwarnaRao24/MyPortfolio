@@ -64,7 +64,7 @@ def contact_view(request):
                         <p><strong style="color:#a3a3a3;">Services Requested:</strong> {services_string}</p>
                         <p><strong style="color:#a3a3a3;">Message:</strong> {message_text or "None provided"}</p>
                         <hr style="border-color:#262626;margin:16px 0;">
-                        <a href="http://67.205.170.7/admin/portfolio/contactmessage/"
+                        <a href="https://www.theswarnaraogroup.com/admin/portfolio/contactmessage/"
                            style="background:#06b6d4;color:#000;padding:10px 20px;font-weight:900;
                            text-decoration:none;text-transform:uppercase;letter-spacing:0.1em;font-size:12px;">
                             View in Admin Panel
