@@ -132,6 +132,7 @@ STORAGES = {
 
 
 RESEND_API_KEY = env('RESEND_API_KEY', default='')
+ADMIN_EMAIL = env('ADMIN_EMAIL', default='theswarnaraogroup@gmail.com')
 
 # Production Security Headers
 if not DEBUG:
