@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+import random
 
 
 class Experience(models.Model):
@@ -23,16 +25,14 @@ class Project(models.Model):
     tech_stack = models.CharField(max_length=200, help_text="e.g., Python, PySpark, Databricks, AWS, Django")
     github_url = models.URLField(blank=True, null=True)
     live_demo_url = models.URLField(blank=True, null=True)
-
     associated_experience = models.ForeignKey(
         Experience,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
         related_name='projects',
-        help_text="Link this project to a specific employer, or leave blank if it is an independent side-project"
+        help_text="Link this project to a specific employer, or leave blank if independent"
     )
-
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -51,7 +51,6 @@ class Service(models.Model):
         ('RESUME', 'Resume Optimization'),
         ('LINKEDIN', 'LinkedIn Optimization')
     ]
-
     title = models.CharField(max_length=100)
     service_type = models.CharField(max_length=20, choices=SERVICE_TYPES)
     description = models.TextField()
@@ -62,18 +61,34 @@ class Service(models.Model):
         return f"{self.title} - ${self.price} CAD"
 
 
+class EmailOTP(models.Model):
+    email = models.EmailField()
+    code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_verified = models.BooleanField(default=False)
+
+    def is_expired(self):
+        return timezone.now() > self.created_at + timezone.timedelta(minutes=10)
+
+    @classmethod
+    def generate_for(cls, email):
+        # Delete any existing OTPs for this email
+        cls.objects.filter(email=email).delete()
+        code = str(random.randint(100000, 999999))
+        return cls.objects.create(email=email, code=code)
+
+    def __str__(self):
+        return f"OTP for {self.email} — {'verified' if self.is_verified else 'pending'}"
+
+
 class ContactMessage(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)
-    selected_services = models.TextField(
-        help_text="Services selected by the user during booking"
-    )
+    selected_services = models.TextField(help_text="Services selected by the user during booking")
     message = models.TextField(blank=True, null=True, help_text="Additional custom instructions or queries")
     submitted_at = models.DateTimeField(auto_now_add=True)
-
-    # Tracks whether admin has reviewed this booking
     is_read = models.BooleanField(default=False)
 
     class Meta:

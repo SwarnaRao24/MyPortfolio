@@ -7,4 +7,5 @@ urlpatterns = [
     path('projects/', views.projects_view, name='projects'), # Data Engineering Pipelines
     path('services/', views.services_view, name='services'), # Newcomer & Student Services Hub
     path('contact/', views.contact_view, name='contact'),    # Booking interface
+    path('contact/send-otp/', views.send_otp_view, name='send_otp'),
 ]

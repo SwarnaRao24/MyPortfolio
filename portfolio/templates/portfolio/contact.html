@@ -6,15 +6,15 @@
 
     {% if messages %}
         {% for message in messages %}
-            <div class="bg-cyan-950/50 border border-cyan-500 text-cyan-400 p-4 font-mono text-xs uppercase tracking-wider mb-8">
+            <div class="{% if message.tags == 'error' %}bg-red-950/50 border border-red-500 text-red-400{% else %}bg-cyan-950/50 border border-cyan-500 text-cyan-400{% endif %} p-4 font-mono text-xs uppercase tracking-wider mb-8">
                 {{ message }}
             </div>
         {% endfor %}
     {% endif %}
 
-    <form method="POST" class="space-y-6">
+    <form method="POST" id="bookingForm" class="space-y-6">
         {% csrf_token %}
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label class="block text-xs font-black tracking-widest uppercase text-neutral-400 mb-2">FIRST NAME</label>
@@ -29,7 +29,14 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label class="block text-xs font-black tracking-widest uppercase text-neutral-400 mb-2">EMAIL ADDRESS</label>
-                <input type="email" name="email" required class="w-full bg-black border border-neutral-800 p-4 text-white font-medium focus:outline-none focus:border-cyan-500 transition-colors text-sm">
+                <div class="flex gap-2">
+                    <input type="email" name="email" id="emailInput" required
+                           class="flex-1 bg-black border border-neutral-800 p-4 text-white font-medium focus:outline-none focus:border-cyan-500 transition-colors text-sm">
+                    <button type="button" id="sendOtpBtn"
+                            class="bg-cyan-500 text-black font-black tracking-widest text-xs uppercase px-4 hover:bg-white transition-all duration-300 whitespace-nowrap">
+                        VERIFY
+                    </button>
+                </div>
             </div>
             <div>
                 <label class="block text-xs font-black tracking-widest uppercase text-neutral-400 mb-2">PHONE NUMBER</label>
@@ -37,15 +44,26 @@
             </div>
         </div>
 
+        <!-- OTP Field - Revealed upon clicking verify-->
+        <div id="otpSection" class="hidden">
+            <label class="block text-xs font-black tracking-widest uppercase text-neutral-400 mb-2">VERIFICATION CODE</label>
+            <div class="flex gap-2 items-center">
+                <input type="text" name="otp_code" id="otpInput" maxlength="6" placeholder="Enter 6-digit code"
+                       class="w-48 bg-black border border-cyan-800 p-4 text-cyan-400 font-black text-center tracking-[0.3em] text-lg focus:outline-none focus:border-cyan-500 transition-colors">
+                <span id="otpStatus" class="text-xs font-mono text-neutral-500"></span>
+            </div>
+            <p class="text-xs text-neutral-500 font-mono mt-2">Check your inbox — code expires in 10 minutes.</p>
+        </div>
+
         <div>
             <label class="block text-xs font-black tracking-widest uppercase text-neutral-400 mb-4">SELECT CORE SERVICES TO OPT-IN</label>
             <div class="space-y-3">
-                
+
                 <label class="flex items-center space-x-4 bg-black border border-neutral-900 p-4 hover:border-neutral-800 cursor-pointer select-none transition-colors group">
                     <input type="checkbox" name="services_requested" value="Canadian Tax Filing" class="w-4 h-4 accent-cyan-400 rounded-none bg-black border-neutral-800 focus:ring-0">
                     <div class="flex flex-col">
                         <span class="text-sm font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wide">Canadian Tax Filing for Newcomers</span>
-                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$40 CAD Base Rate</span>
+                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$45 CAD Base Rate</span>
                     </div>
                 </label>
 
@@ -53,7 +71,7 @@
                     <input type="checkbox" name="services_requested" value="Graphic Design" class="w-4 h-4 accent-cyan-400 rounded-none bg-black border-neutral-800 focus:ring-0">
                     <div class="flex flex-col">
                         <span class="text-sm font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wide">Graphic Design</span>
-                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$40 CAD Base Rate</span>
+                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$100 CAD Start Rate</span>
                     </div>
                 </label>
 
@@ -66,17 +84,18 @@
                 </label>
 
                 <label class="flex items-center space-x-4 bg-black border border-neutral-900 p-4 hover:border-neutral-800 cursor-pointer select-none transition-colors group">
-    <input type="checkbox" name="services_requested" value="Custom Web Development" class="w-4 h-4 accent-cyan-400 rounded-none bg-black border-neutral-800 focus:ring-0">
-    <div class="flex flex-col">
-        <span class="text-sm font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wide">Custom MVP & Business Web Development</span>
-        <span class="text-xs text-neutral-500 font-mono mt-0.5">$100 CAD Base Start Rate</span>
-    </div>
-</label>
+                    <input type="checkbox" name="services_requested" value="Custom Web Development" class="w-4 h-4 accent-cyan-400 rounded-none bg-black border-neutral-800 focus:ring-0">
+                    <div class="flex flex-col">
+                        <span class="text-sm font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wide">Custom MVP & Business Web Development</span>
+                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$100 CAD Start Rate</span>
+                    </div>
+                </label>
+
                 <label class="flex items-center space-x-4 bg-black border border-neutral-900 p-4 hover:border-neutral-800 cursor-pointer select-none transition-colors group">
                     <input type="checkbox" name="services_requested" value="Resume Optimization" class="w-4 h-4 accent-cyan-400 rounded-none bg-black border-neutral-800 focus:ring-0">
                     <div class="flex flex-col">
                         <span class="text-sm font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wide">Resume Strategy & Transformation</span>
-                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$35 CAD Base Rate</span>
+                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$50 CAD Base Rate</span>
                     </div>
                 </label>
 
@@ -84,7 +103,7 @@
                     <input type="checkbox" name="services_requested" value="LinkedIn Optimization" class="w-4 h-4 accent-cyan-400 rounded-none bg-black border-neutral-800 focus:ring-0">
                     <div class="flex flex-col">
                         <span class="text-sm font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wide">LinkedIn Branding & Profile Sync</span>
-                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$35 CAD Base Rate</span>
+                        <span class="text-xs text-neutral-500 font-mono mt-0.5">$50 CAD Base Rate</span>
                     </div>
                 </label>
 
@@ -96,9 +115,119 @@
             <textarea name="message" rows="4" placeholder="Type context regarding timeline or constraints..." class="w-full bg-black border border-neutral-800 p-4 text-white font-medium focus:outline-none focus:border-cyan-500 transition-colors text-sm"></textarea>
         </div>
 
-        <button type="submit" class="w-full bg-cyan-500 text-black font-black tracking-widest text-xs uppercase py-4 hover:bg-white transition-all duration-300 shadow-xl">
-            TRANSMIT SECURE BOOKING &rarr;
+        <button type="submit" id="submitBtn" disabled
+                class="w-full bg-neutral-700 text-neutral-400 font-black tracking-widest text-xs uppercase py-4 transition-all duration-300 shadow-xl cursor-not-allowed">
+            VERIFY EMAIL TO UNLOCK BOOKING &rarr;
         </button>
     </form>
 </div>
+
+<script>
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const emailInput = document.getElementById('emailInput');
+    const otpSection = document.getElementById('otpSection');
+    const otpInput = document.getElementById('otpInput');
+    const otpStatus = document.getElementById('otpStatus');
+    const submitBtn = document.getElementById('submitBtn');
+
+    let countdownInterval = null;
+
+    sendOtpBtn.addEventListener('click', async () => {
+        const email = emailInput.value.trim();
+        if (!email) {
+            otpStatus.textContent = 'Enter your email first.';
+            otpStatus.style.color = '#f87171';
+            otpSection.classList.remove('hidden');
+            return;
+        }
+
+        sendOtpBtn.textContent = 'SENDING...';
+        sendOtpBtn.disabled = true;
+
+        try {
+            const response = await fetch('/contact/send-otp/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: JSON.stringify({ email })
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                otpSection.classList.remove('hidden');
+                otpStatus.textContent = 'Code sent! Check your inbox.';
+                otpStatus.style.color = '#06b6d4';
+                startCountdown();
+            } else {
+                otpSection.classList.remove('hidden');
+                otpStatus.textContent = data.error || 'Failed to send code.';
+                otpStatus.style.color = '#f87171';
+                sendOtpBtn.textContent = 'VERIFY';
+                sendOtpBtn.disabled = false;
+            }
+        } catch (e) {
+            otpSection.classList.remove('hidden');
+            otpStatus.textContent = 'Network error. Try again.';
+            otpStatus.style.color = '#f87171';
+            sendOtpBtn.textContent = 'VERIFY';
+            sendOtpBtn.disabled = false;
+        }
+    });
+
+    // Unlock submit button when 6 digits entered
+    otpInput.addEventListener('input', () => {
+        if (otpInput.value.length === 6) {
+            otpStatus.textContent = '✓ Code entered — submit your booking below.';
+            otpStatus.style.color = '#4ade80';
+            submitBtn.disabled = false;
+            submitBtn.className = 'w-full bg-cyan-500 text-black font-black tracking-widest text-xs uppercase py-4 hover:bg-white transition-all duration-300 shadow-xl cursor-pointer';
+            submitBtn.textContent = 'TRANSMIT SECURE BOOKING →';
+        } else {
+            submitBtn.disabled = true;
+            submitBtn.className = 'w-full bg-neutral-700 text-neutral-400 font-black tracking-widest text-xs uppercase py-4 transition-all duration-300 shadow-xl cursor-not-allowed';
+            submitBtn.textContent = 'VERIFY EMAIL TO UNLOCK BOOKING →';
+        }
+    });
+
+    function startCountdown() {
+        let seconds = 600;
+        if (countdownInterval) clearInterval(countdownInterval);
+        countdownInterval = setInterval(() => {
+            seconds--;
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            sendOtpBtn.textContent = `RESEND (${m}:${s.toString().padStart(2, '0')})`;
+            if (seconds <= 0) {
+                clearInterval(countdownInterval);
+                sendOtpBtn.textContent = 'RESEND';
+                sendOtpBtn.disabled = false;
+                otpStatus.textContent = 'Code expired. Request a new one.';
+                otpStatus.style.color = '#f87171';
+                submitBtn.disabled = true;
+                submitBtn.className = 'w-full bg-neutral-700 text-neutral-400 font-black tracking-widest text-xs uppercase py-4 transition-all duration-300 shadow-xl cursor-not-allowed';
+                submitBtn.textContent = 'VERIFY EMAIL TO UNLOCK BOOKING →';
+            }
+        }, 1000);
+    }
+
+    // Require at least one service selected before submitting
+document.getElementById('bookingForm').addEventListener('submit', (e) => {
+    const checked = document.querySelectorAll('input[name="services_requested"]:checked');
+    if (checked.length === 0) {
+        e.preventDefault();
+        // Show error message below the services section
+        let existing = document.getElementById('serviceError');
+        if (!existing) {
+            const error = document.createElement('p');
+            error.id = 'serviceError';
+            error.textContent = '⚠ Please select at least one service to proceed.';
+            error.style.color = '#f87171';
+            error.className = 'text-xs font-mono mt-2';
+            document.querySelector('input[name="services_requested"]').closest('.space-y-3').after(error);
+        }
+    }
+});
+</script>
 {% endblock %}
