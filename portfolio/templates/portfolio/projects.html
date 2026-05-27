@@ -1,24 +1,22 @@
 {% extends 'portfolio/base.html' %}
 {% block content %}
-<span class="text-xs font-black tracking-[0.3em] uppercase text-cyan-400 block mb-2">SYSTEM DEPLOYMENTS</span>
-<h1 class="text-5xl md:text-7xl font-black tracking-tighter text-white uppercase mb-12">DATA PIPELINES<span class="text-cyan-400">_</span></h1>
+<span class="reveal from-left delay-1 text-xs font-black tracking-[0.3em] uppercase text-cyan-400 block mb-2">SYSTEM DEPLOYMENTS</span>
+<h1 class="reveal from-left delay-2 text-5xl md:text-7xl font-black tracking-tighter text-white uppercase mb-12">DATA PIPELINES<span class="text-cyan-400">_</span></h1>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     {% for project in projects %}
-    <div class="bg-neutral-950 border-2 border-neutral-900 p-8 flex flex-col justify-between hover:border-cyan-500/50 transition-all duration-300 group shadow-2xl relative overflow-hidden">
+    <div class="reveal {% cycle 'from-left' 'from-right' %} delay-{{ forloop.counter }} bg-neutral-950 border-2 border-neutral-900 p-8 flex flex-col justify-between hover:border-cyan-500/50 transition-all duration-300 group shadow-2xl relative overflow-hidden">
         <div>
             <div class="flex justify-between items-start mb-6">
                 <h2 class="text-2xl font-black uppercase tracking-tight text-white group-hover:text-cyan-400 transition-colors">{{ project.title }}</h2>
                 <span class="text-xs font-mono text-neutral-600">#0{{ forloop.counter }}</span>
             </div>
             <p class="text-neutral-400 text-sm leading-relaxed mb-6 font-medium">{{ project.description }}</p>
-            
             <div class="mb-4">
                 <span class="text-[10px] font-black tracking-widest uppercase text-neutral-500 block mb-2">STACK CONFIGURATION:</span>
                 <p class="text-xs font-mono bg-neutral-900 text-neutral-300 p-3 border border-neutral-800 tracking-tight">{{ project.tech_stack }}</p>
             </div>
         </div>
-        
         <div class="mt-8 pt-4 border-t border-neutral-900 flex justify-between items-center">
             {% if project.github_url %}
             <a href="{{ project.github_url }}" target="_blank" class="text-xs font-black uppercase tracking-widest text-cyan-400 hover:text-white transition-colors">
