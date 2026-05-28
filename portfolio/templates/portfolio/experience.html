@@ -1,23 +1,93 @@
 {% extends 'portfolio/base.html' %}
+{% block title %}Career History | Swarna Rao | Data Engineer Canada{% endblock %}
+{% block meta_description %}Explore Swarnamukhi Chintalapudi's career history as a Data Pipeline Architect at Scotiabank and Dayforce. Based in Mississauga, Ontario, Canada.{% endblock %}
 {% block content %}
-<div class="max-w-3xl">
+<div>
     <span class="reveal from-left delay-1 text-xs font-black tracking-[0.3em] uppercase text-fuchsia-500 block mb-2">OPERATIONAL ARCHITECTURE</span>
     <h1 class="reveal from-left delay-2 text-5xl md:text-7xl font-black tracking-tighter text-white uppercase mb-8">CAREER LOG<span class="text-fuchsia-500">_</span></h1>
 
-    <div class="relative border-l-4 border-neutral-800 pl-8 space-y-12 mt-16">
-        {% for exp in experiences %}
-        <div class="reveal {% cycle 'from-left' 'from-right' %} group relative">
-            <div class="absolute -left-[38px] top-1.5 h-4 w-4 rounded-none bg-black border-4 border-fuchsia-500 group-hover:bg-fuchsia-500 transition-all duration-300"></div>
-            <span class="text-xs font-mono font-bold text-neutral-500 tracking-wider">
-                {{ exp.start_date|date:"Y" }} — {% if exp.is_current %}PRESENT{% else %}{{ exp.end_date|date:"Y" }}{% endif %}
-            </span>
-            <h2 class="text-2xl font-black uppercase text-white mt-1 group-hover:text-fuchsia-400 transition-colors">{{ exp.job_title }}</h2>
-            <p class="text-sm font-bold tracking-wide text-neutral-400 uppercase mb-4">{{ exp.company_name }} // {{ exp.location }}</p>
-            <p class="text-neutral-400 leading-relaxed text-base font-medium">{{ exp.summary }}</p>
+    <!-- Timeline -->
+    <div class="relative mt-20">
+
+        <!-- Vertical center line (hidden on mobile) -->
+        <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-neutral-800 -translate-x-1/2"></div>
+
+        <div class="space-y-0">
+            {% for exp in experiences %}
+
+            {% if forloop.counter|divisibleby:2 %}
+            <!-- EVEN — content on LEFT, dot center, empty right -->
+            <div class="reveal from-left relative flex flex-col md:flex-row items-center md:items-start gap-0 md:gap-0 mb-0">
+
+                <!-- Left content -->
+                <div class="w-full md:w-1/2 md:pr-16 pb-16">
+                    <div class="group bg-neutral-950 border-2 border-neutral-900 hover:border-fuchsia-500 p-8 transition-all duration-300 md:text-right">
+                        <span class="text-xs font-mono font-bold text-neutral-500 tracking-wider">
+                            {{ exp.start_date|date:"Y" }} — {% if exp.is_current %}PRESENT{% else %}{{ exp.end_date|date:"Y" }}{% endif %}
+                        </span>
+                        <h2 class="text-xl font-black uppercase text-white mt-1 group-hover:text-fuchsia-400 transition-colors">{{ exp.job_title }}</h2>
+                        <p class="text-sm font-bold tracking-wide text-neutral-400 uppercase mb-4">{{ exp.company_name }} // {{ exp.location }}</p>
+                        <p class="text-neutral-400 leading-relaxed text-sm font-medium">{{ exp.summary }}</p>
+                    </div>
+                </div>
+
+                <!-- Center dot -->
+                <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 top-8 z-10 w-5 h-5 rounded-none bg-black border-4 border-fuchsia-500 group-hover:bg-fuchsia-500 transition-all duration-300"></div>
+
+                <!-- Right empty -->
+                <div class="hidden md:block w-1/2 md:pl-16 pb-16"></div>
+            </div>
+
+            {% else %}
+            <!-- ODD — empty left, dot center, content on RIGHT -->
+            <div class="reveal from-right relative flex flex-col md:flex-row items-center md:items-start gap-0 md:gap-0 mb-0">
+
+                <!-- Left empty -->
+                <div class="hidden md:block w-1/2 md:pr-16 pb-16"></div>
+
+                <!-- Center dot -->
+                <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 top-8 z-10 w-5 h-5 rounded-none bg-black border-4 border-fuchsia-500 transition-all duration-300"></div>
+
+                <!-- Right content -->
+                <div class="w-full md:w-1/2 md:pl-16 pb-16">
+                    <div class="group bg-neutral-950 border-2 border-neutral-900 hover:border-fuchsia-500 p-8 transition-all duration-300">
+                        <span class="text-xs font-mono font-bold text-neutral-500 tracking-wider">
+                            {{ exp.start_date|date:"Y" }} — {% if exp.is_current %}PRESENT{% else %}{{ exp.end_date|date:"Y" }}{% endif %}
+                        </span>
+                        <h2 class="text-xl font-black uppercase text-white mt-1 group-hover:text-fuchsia-400 transition-colors">{{ exp.job_title }}</h2>
+                        <p class="text-sm font-bold tracking-wide text-neutral-400 uppercase mb-4">{{ exp.company_name }} // {{ exp.location }}</p>
+                        <p class="text-neutral-400 leading-relaxed text-sm font-medium">{{ exp.summary }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% empty %}
+            <p class="text-neutral-600 font-mono italic text-center">Database stream empty. Seed experience models via admin panel.</p>
+            {% endfor %}
         </div>
-        {% empty %}
-        <p class="text-neutral-600 font-mono italic">Database stream empty. Seed experience models via admin panel.</p>
-        {% endfor %}
+    </div>
+
+    <!-- Internal links -->
+    <div class="reveal from-bottom delay-1 mt-12 pt-12 border-t border-neutral-900 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="{% url 'projects' %}"
+           class="group bg-neutral-950 border border-neutral-800 p-6 hover:border-cyan-500 transition-all duration-300">
+            <span class="text-[10px] font-mono text-neutral-600 block uppercase tracking-widest mb-2">// Next</span>
+            <span class="text-sm font-black uppercase text-white group-hover:text-cyan-400 transition-colors">View Data Pipelines &rarr;</span>
+            <p class="text-xs text-neutral-500 font-mono mt-1">See projects built from this experience</p>
+        </a>
+        <a href="{% url 'services' %}"
+           class="group bg-neutral-950 border border-neutral-800 p-6 hover:border-fuchsia-500 transition-all duration-300">
+            <span class="text-[10px] font-mono text-neutral-600 block uppercase tracking-widest mb-2">// Services</span>
+            <span class="text-sm font-black uppercase text-white group-hover:text-fuchsia-400 transition-colors">Explore Services &rarr;</span>
+            <p class="text-xs text-neutral-500 font-mono mt-1">Tax filing, resume, web development</p>
+        </a>
+        <a href="{% url 'contact' %}"
+           class="group bg-fuchsia-600 border border-fuchsia-600 p-6 hover:bg-white transition-all duration-300">
+            <span class="text-[10px] font-mono text-fuchsia-300 group-hover:text-neutral-500 block uppercase tracking-widest mb-2">// Hire</span>
+            <span class="text-sm font-black uppercase text-white group-hover:text-black transition-colors">Book a Session &rarr;</span>
+            <p class="text-xs text-fuchsia-300 group-hover:text-neutral-500 font-mono mt-1">Work together on your next project</p>
+        </a>
     </div>
 </div>
 {% endblock %}
